@@ -17,6 +17,7 @@ import service.PersonService;
 
 
 @RestController
+@RequestMapping(path = "/demo")
 public class PersonController {
 
 	@Autowired
