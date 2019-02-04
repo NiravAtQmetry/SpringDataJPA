@@ -12,7 +12,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 	List<Person> findByFirstNameAndLastName(String firstName,String lastName);
 	List<Person> findByAgeGreaterThan(int age);
 	List<Person> findByAgeBetween(int ageLower,int ageHigher);
-	List<Person> findByNameLike(String name);
-	List<Person> findByNameContains(String name);
-	List<Person> findByNameIn(List<String> names);
+	List<Person> findByFirstNameLike(String name);
+	List<Person> findByFirstNameContains(String name);
+	List<Person> findByFirstNameIn(List<String> names);
+	
 }

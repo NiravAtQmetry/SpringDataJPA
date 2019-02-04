@@ -64,4 +64,9 @@ public class PersonController {
 	public HttpStatus updatePerson(@RequestBody Person person) {
 		return personService.updatePerson(person) ? HttpStatus.ACCEPTED : HttpStatus.BAD_REQUEST;
 	}
+
+	@RequestMapping(value = "/personPagingRequest", method = RequestMethod.GET)
+	public List<Person> pagingAndSortingRequestForPerson(@RequestParam Integer pageNo,@RequestParam Integer pageSize) {
+		return personService.findByPagingAndSortingRequest(pageNo,pageSize);
+	}
 }
