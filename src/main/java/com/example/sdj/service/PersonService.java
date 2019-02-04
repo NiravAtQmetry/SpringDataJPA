@@ -37,7 +37,16 @@ public class PersonService {
 	public List<Person> findByName(String name) {
 		return personRepository.findByFirstName(name);
 	}
+	
+	@Transactional
+	public List<Person> findByFirstNameAndLastName(String firstName,String lastName) {
+		return personRepository.findByFirstNameAndLastName(firstName,lastName);
+	}
 
+	@Transactional
+	public List<Person> findByAgeGreaterThan(Integer age) {
+		return personRepository.findByAgeGreaterThan(age);
+	}
 
 	//update
 	@Transactional
