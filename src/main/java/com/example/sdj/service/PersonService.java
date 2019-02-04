@@ -12,9 +12,21 @@ import com.example.sdj.repo.PersonRepository;
 
 @Service
 public class PersonService {
-	
+
 	@Autowired
 	PersonRepository personRepository;
+
+	//create
+	@Transactional
+	public boolean addPerson(Person person) {
+		return personRepository.save(person) != null;
+	}
+
+	// read
+	@Transactional
+	public Person getById(Long id) {
+		return personRepository.findById(id).get();
+	}
 
 	@Transactional
 	public List<Person> getAllPersons() {
@@ -26,23 +38,33 @@ public class PersonService {
 		return personRepository.findByFirstName(name);
 	}
 
+
+	//update
 	@Transactional
-	public Person getById(Long id) {
-		return personRepository.findById(id).get();
+	public boolean updatePerson(Person person) {
+		return personRepository.save(person) != null;
 	}
 
+
+	//delete
 	@Transactional
 	public void deletePerson(Long personId) {
 		personRepository.deleteById(personId);
 	}
 
-	@Transactional
-	public boolean addPerson(Person person) {
-		return personRepository.save(person) != null;
-	}
 
+	//isExist
 	@Transactional
-	public boolean updatePerson(Person person) {
-		return personRepository.save(person) != null;
+	public boolean isPersonExist(Long personId) {
+		return personRepository.existsById(personId);
 	}
+	
+	//count
+	@Transactional
+	public long getTotalcount() {
+		return personRepository.count();
+	}
+	
+
+
 }
