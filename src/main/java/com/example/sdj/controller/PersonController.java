@@ -1,4 +1,4 @@
-package controller;
+package com.example.sdj.controller;
 
 
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import entity.Person;
-import service.PersonService;
+import com.example.sdj.entity.Person;
+import com.example.sdj.service.PersonService;
 
 
 @RestController

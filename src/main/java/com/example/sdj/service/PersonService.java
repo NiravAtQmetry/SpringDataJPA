@@ -1,4 +1,4 @@
-package service;
+package com.example.sdj.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import entity.Person;
-import repo.PersonRepository;
+import com.example.sdj.entity.Person;
+import com.example.sdj.repo.PersonRepository;
 
 @Service
 public class PersonService {
