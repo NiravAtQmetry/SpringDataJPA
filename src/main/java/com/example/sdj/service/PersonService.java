@@ -1,6 +1,7 @@
 package com.example.sdj.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.repo.ContactRepository;
 import com.example.sdj.repo.PersonRepository;
 
 @Service
@@ -20,7 +22,8 @@ public class PersonService {
 	@Autowired
 	PersonRepository personRepository;
 
-
+	@Autowired
+	ContactRepository contactRepository;
 	//create
 	@Transactional
 	public boolean addPerson(Person person) {
@@ -70,7 +73,7 @@ public class PersonService {
 		return personRepository.createPerson(person);
 	}
 	
-	public Contact findContactByPersonId(Long id) {
+	public List<Contact> findContactByPersonId(Long id) {
 		return personRepository.findContactByPersonId(id);
 	}
 	public Person findPersonByNativeQuery(Long id) {
@@ -99,6 +102,7 @@ public class PersonService {
 		return personRepository.findByFirstnameStartingWith(startsWith);
 	}
 
+	
 
 
 }

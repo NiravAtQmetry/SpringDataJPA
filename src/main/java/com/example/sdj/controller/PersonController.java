@@ -3,6 +3,8 @@ package com.example.sdj.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,46 +27,43 @@ public class PersonController {
 	@Autowired
 	PersonService personService;
 
+	//get person by id
 	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
 	public @ResponseBody Person getAllUsers(@PathVariable Long id) {
 		return personService.getById(id);
 	}
 
+	//get person by Name
 	@RequestMapping(value = "/personByName/{name}", method = RequestMethod.GET)
 	public List<Person> getPersoneByName(@PathVariable String name) {
 		return personService.findByName(name);
 	}
 
-	
-	//Join
-	
-	@RequestMapping(value = "/person/{id}/contact", method = RequestMethod.GET)
-	public Contact getContactByPersonId(@PathVariable Long id) {
-		return personService.findContactByPersonId(id);
-	}
-	
-	//Native Query
-	
-	@RequestMapping(value = "/person/native/{id}", method = RequestMethod.GET)
-	public Person getContactsWithNativeQuery(@PathVariable Long id) {
-		return personService.findPersonByNativeQuery(id);
-	}
-
+	//get person by first And Last Name
 	@RequestMapping(value = "/personByFirstAndLastName", method = RequestMethod.GET)
 	public List<Person> getPersoneByName(@RequestParam String firstName,@RequestParam String lastName) {
 		return personService.findByFirstNameAndLastName(firstName, lastName);
 	}
 	
+	//get person by Age Greater Than
 	@RequestMapping(value = "/personByAgeGreaterThan/{age}", method = RequestMethod.GET)
 	public List<Person> getPersoneByName(@PathVariable Integer age) {
 		return personService.findByAgeGreaterThan(age);
 	}
 	
+	// insert with JPA
+	@RequestMapping(value = "/person", method = RequestMethod.POST)
+	public HttpStatus insertPersone(@RequestBody Person person) {
+		return personService.addPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+	}
+	
+	//get All Person
 	@RequestMapping(value = "/person", method = RequestMethod.GET)
 	public List<Person> getAll() {
 		return personService.getAllPersons();
 	}
 
+	//Delete Person By ID
 	@RequestMapping(value = "/person/{id}", method = RequestMethod.DELETE)
 	public HttpStatus deletePersnone(@PathVariable Long id) {
 		personService.deletePerson(id);
@@ -72,12 +71,29 @@ public class PersonController {
 	}
 
 	
-	//insert with JPA 
 	
-	@RequestMapping(value = "/person", method = RequestMethod.POST)
-	public HttpStatus insertPersone(@RequestBody Person person) {
-		return personService.addPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+	/**
+	 * 
+	 * Inner Joing
+	 */
+	
+	// Get List of Contacts by person Id
+	@RequestMapping(value = "/person/{id}/contact", method = RequestMethod.GET)
+	public List<Contact> getContactByPersonId(@PathVariable Long id) {
+		return personService.findContactByPersonId(id);
 	}
+	
+	/**
+	 * 
+	 * Native Query
+	 */
+	
+	//Get Person by Id
+	@RequestMapping(value = "/person/native/{id}", method = RequestMethod.GET)
+	public Person getContactsWithNativeQuery(@PathVariable Long id) {
+		return personService.findPersonByNativeQuery(id);
+	}
+
 	
 	//insert with entitymanager
 	

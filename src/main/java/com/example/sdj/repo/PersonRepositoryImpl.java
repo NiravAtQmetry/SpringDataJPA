@@ -1,5 +1,8 @@
 package com.example.sdj.repo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -28,7 +31,6 @@ public class PersonRepositoryImpl implements IEPersonRepository{
 		Query query = em.createNativeQuery(sql, Person.class);
 		query.setParameter(1, id);
 		Person person = (Person) query.getSingleResult();
-		
 		return person;
 	}
 
@@ -37,12 +39,12 @@ public class PersonRepositoryImpl implements IEPersonRepository{
 	@Override
 	public boolean createPerson(Person person) {
 
+		List<Contact> contacts=new ArrayList<>();
 		Contact contact = new Contact();
-		contact.setAddress("rrr");
-		contact.setPerson(person);
-		contact.setPhoneNo(2515L);
+		contact.setAddress("demo address");
+		contact.setPhoneNo(8512555L);
 		
-		person.setContact(contact);
+		person.setContact(contacts);
 		em.persist(person);
 		return true;
 

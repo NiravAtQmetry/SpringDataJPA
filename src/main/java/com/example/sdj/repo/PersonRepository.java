@@ -28,7 +28,7 @@ public interface PersonRepository extends JpaRepository<Person, Long>,IEPersonRe
 	
 	//Join Contact with person
 	@Query("select c from Contact c inner join c.person p")
-	Contact findContactByPersonId(@Param("id") Long id);
+	List<Contact> findContactByPersonId(@Param("id") Long id);
 
 	
 }

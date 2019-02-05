@@ -30,16 +30,15 @@ public class Person {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private Contact contact;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Contact> contacts;	
 	
-	
-	
-	public Contact getContact() {
-		return contact;
+
+	public List<Contact> getContact() {
+		return contacts;
 	}
-	public void setContact(Contact contact) {
-		this.contact = contact;
+	public void setContact(List<Contact> contacts) {
+		this.contacts = contacts;
 	}
 	public Long getId() {
 		return id;
