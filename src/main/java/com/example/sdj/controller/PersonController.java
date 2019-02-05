@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.exception.EntityNotFoundException;
+import com.example.sdj.exception.RequiredFieldMissingException;
 import com.example.sdj.service.PersonService;
 
 
@@ -29,8 +31,9 @@ public class PersonController {
 
 	//get person by id
 	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
-	public @ResponseBody Person getAllUsers(@PathVariable Long id) {
-		return personService.getById(id);
+	public @ResponseBody Person getAllUsers(@PathVariable Long id) throws EntityNotFoundException  {
+		Person person=personService.getById(id);
+		return person;
 	}
 
 	//get person by Name
@@ -98,7 +101,7 @@ public class PersonController {
 	//insert with entitymanager
 	
 	@RequestMapping(value = "/person/entity", method = RequestMethod.POST)
-	public HttpStatus insertPersonewithEntity(@RequestBody Person person) {
+	public HttpStatus insertPersonewithEntity(@RequestBody Person person) throws RequiredFieldMissingException {
 		return personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 	}
 

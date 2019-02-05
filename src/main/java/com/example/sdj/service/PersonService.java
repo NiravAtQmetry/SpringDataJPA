@@ -1,6 +1,7 @@
 package com.example.sdj.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.exception.EntityNotFoundException;
+import com.example.sdj.exception.RequiredFieldMissingException;
 import com.example.sdj.repo.ContactRepository;
 import com.example.sdj.repo.PersonRepository;
 
@@ -32,8 +35,14 @@ public class PersonService {
 
 	// read
 	@Transactional
-	public Person getById(Long id) {
-		return personRepository.findById(id).get();
+	public Person getById(Long id) throws EntityNotFoundException {
+		Person person = null;
+		try {
+			person = personRepository.findById(id).get();
+		} catch (NoSuchElementException e) {
+			throw new EntityNotFoundException("Person",id);
+		}
+		return person;
 	}
 
 	@Transactional
@@ -69,7 +78,13 @@ public class PersonService {
 		personRepository.deleteById(personId);
 	}
 
-	public boolean createPerson(Person person) {
+	public boolean createPerson(Person person) throws RequiredFieldMissingException {
+		if(person.getFirstName()==null) {
+			throw new RequiredFieldMissingException("FirstName");
+		}
+		if(person.getLastName()==null) {
+			throw new RequiredFieldMissingException("LastName");
+		}
 		return personRepository.createPerson(person);
 	}
 	
