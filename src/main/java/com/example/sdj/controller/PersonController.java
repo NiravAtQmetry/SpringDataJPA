@@ -69,4 +69,9 @@ public class PersonController {
 	public List<Person> pagingAndSortingRequestForPerson(@RequestParam Integer pageNo,@RequestParam Integer pageSize) {
 		return personService.findByPagingAndSortingRequest(pageNo,pageSize);
 	}
+	
+	@RequestMapping(value = "/personByNameStartsWith/{name}", method = RequestMethod.GET)
+	public List<Person> getPersonByNameStartsWith(@PathVariable String name) {
+		return personService.findByNameStartsWith(name);
+	}
 }

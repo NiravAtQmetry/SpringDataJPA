@@ -80,5 +80,10 @@ public class PersonService {
 		return personRepository.findAll(new PageRequest(pageNo, pageSize,Direction.ASC,"firstName","age")).getContent();
 	}
 
+	public List<Person> findByNameStartsWith(String startsWith) {
+		// TODO Auto-generated method stub
+		return personRepository.findByFirstnameStartingWith(startsWith);
+	}
+
 
 }
