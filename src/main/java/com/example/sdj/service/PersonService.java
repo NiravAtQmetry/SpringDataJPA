@@ -2,7 +2,6 @@ package com.example.sdj.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +16,8 @@ import com.example.sdj.exception.EntityNotFoundException;
 import com.example.sdj.exception.RequiredFieldMissingException;
 import com.example.sdj.repo.ContactRepository;
 import com.example.sdj.repo.PersonRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
