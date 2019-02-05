@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +50,16 @@ public class PersonController {
 		return personService.findPersonByNativeQuery(id);
 	}
 
+	@RequestMapping(value = "/personByFirstAndLastName", method = RequestMethod.GET)
+	public List<Person> getPersoneByName(@RequestParam String firstName,@RequestParam String lastName) {
+		return personService.findByFirstNameAndLastName(firstName, lastName);
+	}
+	
+	@RequestMapping(value = "/personByAgeGreaterThan/{age}", method = RequestMethod.GET)
+	public List<Person> getPersoneByName(@PathVariable Integer age) {
+		return personService.findByAgeGreaterThan(age);
+	}
+	
 	@RequestMapping(value = "/person", method = RequestMethod.GET)
 	public List<Person> getAll() {
 		return personService.getAllPersons();
@@ -79,5 +90,15 @@ public class PersonController {
 	@RequestMapping(value = "/person", method = RequestMethod.PUT)
 	public HttpStatus updatePerson(@RequestBody Person person) {
 		return personService.updatePerson(person) ? HttpStatus.ACCEPTED : HttpStatus.BAD_REQUEST;
+	}
+
+	@RequestMapping(value = "/personPagingRequest", method = RequestMethod.GET)
+	public List<Person> pagingAndSortingRequestForPerson(@RequestParam Integer pageNo,@RequestParam Integer pageSize) {
+		return personService.findByPagingAndSortingRequest(pageNo,pageSize);
+	}
+	
+	@RequestMapping(value = "/personByNameStartsWith/{name}", method = RequestMethod.GET)
+	public List<Person> getPersonByNameStartsWith(@PathVariable String name) {
+		return personService.findByNameStartsWith(name);
 	}
 }
