@@ -13,7 +13,7 @@ import com.example.sdj.service.ContactService;
 import com.example.sdj.service.PersonService;
 
 @RestController
-@RequestMapping(path = "/demo")
+@RequestMapping(path = "/demo1")
 public class ContactController {
 
 	@Autowired

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.entity.PersonContact;
 import com.example.sdj.exception.EntityNotFoundException;
 import com.example.sdj.exception.RequiredFieldMissingException;
 import com.example.sdj.repo.ContactRepository;
@@ -118,7 +119,10 @@ public class PersonService {
 		return personRepository.findByFirstnameStartingWith(startsWith);
 	}
 
-	
+	public List<PersonContact> getPersonContacts() {
+		// TODO Auto-generated method stub
+		return personRepository.getCustomResult();
+	}
 
 
 }

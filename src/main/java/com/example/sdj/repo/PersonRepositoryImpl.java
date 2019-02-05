@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.entity.PersonContact;
 
 
 @Repository
@@ -38,17 +39,19 @@ public class PersonRepositoryImpl implements IEPersonRepository{
 	// create with entity manager
 	@Override
 	public boolean createPerson(Person person) {
-
 		List<Contact> contacts=new ArrayList<>();
 		Contact contact = new Contact();
 		contact.setAddress("demo address");
 		contact.setPhoneNo(8512555L);
-		
 		person.setContact(contacts);
 		em.persist(person);
 		return true;
-
 	}
 	
-
+	@Override
+	public List<PersonContact> getCustomResult(){
+		String sql = "SELECT NEW com.example.sdj.entity.PersonContact(p,c) from Person p inner join Contact c on c.person=p";
+		Query query = em.createQuery(sql,PersonContact.class);
+		return (List<PersonContact>)query.getResultList();
+	}
 }

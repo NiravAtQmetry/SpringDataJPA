@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
+import com.example.sdj.entity.PersonContact;
 import com.example.sdj.exception.EntityNotFoundException;
 import com.example.sdj.exception.RequiredFieldMissingException;
 import com.example.sdj.service.PersonService;
@@ -98,13 +99,11 @@ public class PersonController {
 	}
 
 	
-	//insert with entitymanager
-	
+	//insert with entity manager
 	@RequestMapping(value = "/person/entity", method = RequestMethod.POST)
 	public HttpStatus insertPersonewithEntity(@RequestBody Person person) throws RequiredFieldMissingException {
 		return personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 	}
-
 	
 	@RequestMapping(value = "/person", method = RequestMethod.PUT)
 	public HttpStatus updatePerson(@RequestBody Person person) {
@@ -119,5 +118,10 @@ public class PersonController {
 	@RequestMapping(value = "/personByNameStartsWith/{name}", method = RequestMethod.GET)
 	public List<Person> getPersonByNameStartsWith(@PathVariable String name) {
 		return personService.findByNameStartsWith(name);
+	}
+	
+	@RequestMapping(value = "/personContacts", method = RequestMethod.GET)
+	public List<PersonContact>  getPersonContacts() {
+		return personService.getPersonContacts();
 	}
 }
