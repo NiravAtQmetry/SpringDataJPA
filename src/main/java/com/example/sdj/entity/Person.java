@@ -1,10 +1,16 @@
 package com.example.sdj.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +28,17 @@ public class Person {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Contact contact;
+	
+	
+	
+	public Contact getContact() {
+		return contact;
+	}
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
 	public Long getId() {
 		return id;
 	}

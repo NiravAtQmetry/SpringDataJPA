@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sdj.entity.Contact;
 import com.example.sdj.entity.Person;
 import com.example.sdj.service.PersonService;
 
@@ -33,6 +34,21 @@ public class PersonController {
 		return personService.findByName(name);
 	}
 
+	
+	//Join
+	
+	@RequestMapping(value = "/person/{id}/contact", method = RequestMethod.GET)
+	public Contact getContactByPersonId(@PathVariable Long id) {
+		return personService.findContactByPersonId(id);
+	}
+	
+	//Native Query
+	
+	@RequestMapping(value = "/person/native/{id}", method = RequestMethod.GET)
+	public Person getContactsWithNativeQuery(@PathVariable Long id) {
+		return personService.findPersonByNativeQuery(id);
+	}
+
 	@RequestMapping(value = "/person", method = RequestMethod.GET)
 	public List<Person> getAll() {
 		return personService.getAllPersons();
@@ -44,11 +60,22 @@ public class PersonController {
 		return HttpStatus.NO_CONTENT;
 	}
 
+	
+	//insert with JPA 
+	
 	@RequestMapping(value = "/person", method = RequestMethod.POST)
 	public HttpStatus insertPersone(@RequestBody Person person) {
 		return personService.addPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 	}
+	
+	//insert with entitymanager
+	
+	@RequestMapping(value = "/person/entity", method = RequestMethod.POST)
+	public HttpStatus insertPersonewithEntity(@RequestBody Person person) {
+		return personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+	}
 
+	
 	@RequestMapping(value = "/person", method = RequestMethod.PUT)
 	public HttpStatus updatePerson(@RequestBody Person person) {
 		return personService.updatePerson(person) ? HttpStatus.ACCEPTED : HttpStatus.BAD_REQUEST;
