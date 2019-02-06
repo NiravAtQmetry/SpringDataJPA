@@ -123,6 +123,9 @@ public class PersonService {
 		// TODO Auto-generated method stub
 		return personRepository.getCustomResult();
 	}
-
-
+	
+	public int incrementCountViaStoredProcedure(int i) {
+		// TODO Auto-generated method stub
+		return personRepository.plus1inout(i);
+	}
 }

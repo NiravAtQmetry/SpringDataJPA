@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 import com.example.sdj.entity.Contact;
@@ -28,4 +29,11 @@ public interface PersonRepository extends JpaRepository<Person, Long>,IEPersonRe
 	//Join Contact with person
 	@Query("select c from Contact c inner join c.person p")
 	List<Contact> findContactByPersonId(@Param("id") Long id);
+	
+	@Procedure(procedureName = "plus1inout")
+	Integer plus1inout(Integer arg);
+	
+	//  or we can
+	//	@Procedure
+	//	Integer plus1(@Param("arg") Integer arg);
 }

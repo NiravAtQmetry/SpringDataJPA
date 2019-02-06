@@ -124,4 +124,9 @@ public class PersonController {
 	public List<PersonContact>  getPersonContacts() {
 		return personService.getPersonContacts();
 	}
+	
+	@RequestMapping(value = "/incrementCount/{i}", method = RequestMethod.GET)
+	public Integer  incrementCount(@PathVariable Integer i) {
+		return personService.incrementCountViaStoredProcedure(i);
+	}
 }

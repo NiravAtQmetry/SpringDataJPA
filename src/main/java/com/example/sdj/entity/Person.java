@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -18,6 +21,21 @@ import lombok.ToString;
 @Table(name = "people")
 // Lombok annotations..
 @EqualsAndHashCode @ToString
+
+/**
+ * Stored procedure execute in DB
+ * 
+  	CREATE DEFINER=`root`@`localhost` PROCEDURE `plus1inout`(IN arg int, OUT res int)
+	BEGIN 
+		set res = arg + 1;
+	END
+ *
+ */
+
+@NamedStoredProcedureQuery(name = "Person.plus1", procedureName = "plus1inout",parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "arg", type = Integer.class),
+		@StoredProcedureParameter(mode = ParameterMode.OUT, name = "res", type =Integer.class) }
+)
 public class Person {
 
 	@Id
